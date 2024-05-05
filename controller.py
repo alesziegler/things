@@ -15,7 +15,7 @@ class Controller:
                 self.find_customer()
             else:
                 self.error_messaging()
-            View("Pokracujte libovolnou klavesou...")
+            Menu()
 
     def add_new_customer(self):
         pass
