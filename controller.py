@@ -1,3 +1,4 @@
+#from menu import Menu
 class Controller:
     """
     This class
@@ -7,32 +8,31 @@ class Controller:
     """
     def __init__(self, chosen_action):
         self.chosen_action = chosen_action
-        """
-        Here we need to relocate integer conversion from menu
-        and validation mechanism in case user writes something
-        non-convertible
-        """
-        try:
-            self.chosen_action = int(self.chosen_action)
-        except:
-            self.handling_invalid_input()
 
-        if self.chosen_action == 4:
+        if self.chosen_action == "4":
             self.ending()
         else:
-            if self.chosen_action == 1:
+            if self.chosen_action == "1":
                 self.add_new_customer()
-            elif self.chosen_action == 2:
+            elif self.chosen_action == "2":
                 self.print_all_customers()
-            elif self.chosen_action == 3:
+            elif self.chosen_action == "3":
                 self.find_customer()
             else:
                 self.handling_invalid_input()
+
             from menu import Menu
+            """
+            internal import is here because when menu is imported before init,
+            interpreter screams at me that it is not allowed.
+            Cycle with indeterminate number of repeats could also achieved
+            in Menu class or in main via while (chosen_action != 4) print menu again and ask for input,
+            but I think, maybe wrongly, that this is better.
+            """
             Menu()
 
     def add_new_customer(self):
-        pass
+        print("test")
 
     def print_all_customers(self):
         pass
@@ -41,12 +41,12 @@ class Controller:
         pass
 
     def ending(self):
+        """
+        Right know, this could be written directly
+    into constructor, savinf
+    """
         return
 
     def handling_invalid_input(self):
-        """
-        Ok, this always leads back to a new menu
-
-        """
         print("Tohle neni validni volba. Vyberte si lepe.")
-        return self
+

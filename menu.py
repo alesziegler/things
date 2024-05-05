@@ -9,7 +9,8 @@ class Menu:
         2) user is asked to pick one,
         3) picked option is then stored to a public variable (named chosen_action),
         4) controller object is initialized with chosen action as a parameter.
-
+        (in practice all this could be in one method and code would be shorter,
+        but in larger app this modularity would be useful, imho)
     """
 
     def __init__(self):
@@ -28,5 +29,5 @@ class Menu:
         print(options)
 
     def make_user_pick(self):
-        chosen_action = input("Vyberte si akci ze seznamu vyse:")
+        chosen_action = input("Vyberte si akci ze seznamu vyse: ")
         return chosen_action
