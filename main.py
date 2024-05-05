@@ -6,4 +6,6 @@ print()
 print("***EVIDENCE POJISTENYCH***")
 print()
 
-menu = Menu()
+Menu()
+
+print('This is The End')

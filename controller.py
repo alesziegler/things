@@ -1,9 +1,22 @@
-
-from menu import Menu
 class Controller:
-
-    def __init__(self,chosen_action):
+    """
+    This class
+    1) takes user input from menu,
+    2) decides what to do based on it,
+    3) handles all communication with users after they pick an option in menu
+    """
+    def __init__(self, chosen_action):
         self.chosen_action = chosen_action
+        """
+        Here we need to relocate integer conversion from menu
+        and validation mechanism in case user writes something
+        non-convertible
+        """
+        try:
+            self.chosen_action = int(self.chosen_action)
+        except:
+            self.handling_invalid_input()
+
         if self.chosen_action == 4:
             self.ending()
         else:
@@ -14,7 +27,8 @@ class Controller:
             elif self.chosen_action == 3:
                 self.find_customer()
             else:
-                self.error_messaging()
+                self.handling_invalid_input()
+            from menu import Menu
             Menu()
 
     def add_new_customer(self):
@@ -27,10 +41,12 @@ class Controller:
         pass
 
     def ending(self):
-        print('This is The End')
+        return
 
-    def error_messaging(self):
-        self.chosen_action = int(
-            input("REPENT:")
-        )
+    def handling_invalid_input(self):
+        """
+        Ok, this always leads back to a new menu
+
+        """
+        print("Tohle neni validni volba. Vyberte si lepe.")
         return self
