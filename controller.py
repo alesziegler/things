@@ -1,5 +1,5 @@
 
-from repeater import Repeater
+from view import View
 class Controller:
 
     def __init__(self,chosen_action):
@@ -15,7 +15,7 @@ class Controller:
                 self.find_customer()
             else:
                 self.error_messaging()
-            Repeater("Pokracujte libovolnou klavesou...")
+            View("Pokracujte libovolnou klavesou...")
 
     def add_new_customer(self):
         pass
