@@ -1,4 +1,4 @@
-#from menu import Menu
+from database import Database
 class Controller:
     """
     This class
@@ -23,7 +23,7 @@ class Controller:
 
             from menu import Menu
             """
-            internal import is here because when menu is imported before init,
+            internal import is here because when Menu is imported before init,
             interpreter screams at me that it is not allowed.
             Cycle with indeterminate number of repeats could also achieved
             in Menu class or in main via while (chosen_action != 4) print menu again and ask for input,
@@ -43,7 +43,9 @@ class Controller:
     def ending(self):
         """
         Right know, this could be written directly
-    into constructor, savinf
+    into constructor, saving space, but what if
+    I decide to add some other functionality
+    (e.g. sending some data somewhere before app closes)
     """
         return
 
