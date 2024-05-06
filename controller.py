@@ -1,4 +1,6 @@
+from person import Person
 from database import Database
+
 class Controller:
     """
     This class
@@ -32,7 +34,11 @@ class Controller:
             Menu()
 
     def add_new_customer(self):
-        print("test")
+        name = input("Zadejte jmeno pojistence: ")
+        surname = input("Zadejte prijmeni pojistence: ")
+        tel = input("Zadejte telefon pojistence: ")
+        age = input("Zadejte vek pojistence: ")
+        Person(name,surname,tel,age)
 
     def print_all_customers(self):
         pass
