@@ -1,4 +1,3 @@
-
 class Database:
     """
     This class will have methods which
@@ -18,6 +17,13 @@ class Database:
 
     def add_new_customer(self, new_customer):
         self.__core.append(new_customer)
+
+    def find_customer(self, query):
+        result = ""
+        for customer in self.__core:
+            if customer == query:
+                result += str(customer)
+        return result
 
     def __str__(self):
         """

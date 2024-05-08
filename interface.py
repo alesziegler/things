@@ -101,12 +101,10 @@ class Interface:
 
     def exit(self):
         """
-    Right now, this could be written directly
-    into constructor, saving space, but what if
+    Right now, this method is superfluous, but what if
     I decide to add some other functionality
     (e.g. sending some data somewhere before app closes)
     """
-
         return
 
     def handling_invalid_input(self):
