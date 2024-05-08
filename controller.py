@@ -40,16 +40,45 @@ class Controller:
             Menu()
 
     def add_new_customer(self):
-        given_name = input("Zadejte jmeno pojistence: ")
+        """
+        There are several pieces that need to be put together.
+        Validation should be done through while loop(s) connected
+        ...
+
+        :return:
+        """
+        new_customer = Person()
+        name_invalid = True
+        contact_invalid = True
+        age_invalid = True
+        while name_invalid:
+            # https://www.reddit.com/r/learnprogramming/comments/nbd45m/is_using_a_whiletrue_loop_bad_coding_practice/
+            given_name = input("Zadejte jmeno pojistence: ")
+            surname = input("Zadejte prijmeni pojistence: ")
+            full_name = (given_name,surname)
+
+            try:
+                new_customer.name = full_name
+            except ValueError as x:
+                print(x)
+            else:
+                name_invalid = False
+
+
+        print("test")
+        #try:
+        new_customer.name = given_name
+        #except (something error message as variable print something?)
+        #https://www.adventuresinmachinelearning.com/mastering-user-input-validation-in-python-best-practices-and-examples/
         surname = input("Zadejte prijmeni pojistence: ")
-        n = given_name + " " + surname
+        #n = given_name + " " + surname
         """
         So here should probably be a validation that 
         name and surname uses proper capitalization,
         since setter apparently cannot have two parameters.
         Maybe use lambda function for that?
         """
-        Person.name = n
+        #Person.name = n
         tel = input("Zadejte telefon pojistence: ")
         Person.tel = tel
         age = input("Zadejte vek pojistence: ")
@@ -76,7 +105,7 @@ class Controller:
 
     def exit(self):
         """
-        Right know, this could be written directly
+    Right now, this could be written directly
     into constructor, saving space, but what if
     I decide to add some other functionality
     (e.g. sending some data somewhere before app closes)
