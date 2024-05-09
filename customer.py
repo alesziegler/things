@@ -53,7 +53,17 @@ class Customer:
 
         if not name[0].isupper():
             raise ValueError(
-                f"Prvni pismeno v {locator} musi byt velke. Zadejte prosim krestni jmeno i prijmeni znovu."
+                f"Prvni pismeno v {locator} musi byt velke. "
+                f"Zadejte prosim krestni jmeno i prijmeni znovu."
+            )
+        if not name[1::].islower():
+            """
+            this is unfortunately triggered even when name has just one capital letter.
+            I'll try to fix that.
+            """
+            raise ValueError(
+                f"Velke pismeno muze byt v {locator} jen na zacatku. "
+                f"Zadejte prosim krestni jmeno i prijmeni znovu."
             )
 
     @property
@@ -71,9 +81,16 @@ class Customer:
 
     @contact.setter
     def contact(self, t):
+        try:
+            int(t)
+        except ValueError:
+            raise ValueError("telefoni cislo musi obsahovat pouze cislice bez mezer")
+        else:
+            self.__contact = t
+
         #validation will be here.
         # contact should have length 6 and should be convertible to an integer.
-        self.__contact = t
+
 
     def __str__(self):
         return self.name  # self.contact, self.age

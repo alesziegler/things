@@ -68,15 +68,26 @@ class Interface:
 
             try:
                 new_customer.name = full_name
-            
             except ValueError as error_message:
+                #this is a custom message, defined in setter
                 print(error_message)
             else:
                 name_invalid = False
-        
-        
-        contact = input("Zadejte telefon pojistence: ")
-        Customer.contact = contact
+
+        while contact_invalid:
+            contact = input("Zadejte telefon pojistence: ")
+            try:
+                new_customer.contact = contact
+            except ValueError as error_message:
+                # this is a custom message, defined in setter
+                print(error_message)
+                # for unclear reasons, withoud
+                #return
+            else:
+                contact_invalid = False
+
+
+
         age = input("Zadejte vek pojistence: ")
         Customer.age = age
         """
