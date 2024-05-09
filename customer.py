@@ -27,7 +27,7 @@ class Customer:
 
     @property
     def name(self):
-        print("property test")
+        
         return self.__name
 
     @name.setter
@@ -37,41 +37,35 @@ class Customer:
         :param n:
         :return:
         """
-        print("setting name")
         if len(n) != 2:
             """
             Name has to be two objects in an iterable (given name and surname). 
             This validation step is superflous in this app because of the way input is entered. 
-            But if customer class would be repurposed for something else, it would be essential.
+            But if Customer class would be repurposed for something else, it would be essential.
             """
             raise ValueError("Je nutno zadat jmeno a prijmeni (dve slova)")
 
         given_name = n[0]
         surname = n[1]
-        """
-        If following validation doesn't work, it raises ValueError. 
-        (with various error messages depending on what exactly is wrong with input). 
-        How that error is handled depends on external interface.
-        """
-        self.name_validation(given_name,"krestnim jmenu")
-        self.name_validation(surname,"prijmeni")
-        # if no error is raised, name attribute is set:
-        self.__name = given_name + " " + surname
+        
+        try:
+            self.name_validation(given_name,"krestnim jmenu")
+            self.name_validation(surname,"prijmeni")
+        except ValueError as error_message:
+            raise ValueError(error_message)
+        else:
+            self.__name = given_name + " " + surname
 
     def name_validation(self,name,locator):
-        """
-
-        :param name:
-        :param locator:
-        :return:
-        """
-        print("name validation")
+        
         czech_alphabet = "abcdefghijklmnopqrstuvwxyzáčďéěíňóřšťúůýž"
         for letter in name:
             if letter.lower() not in czech_alphabet:
                 raise ValueError(
                     f"Vsechny znaky v {locator} musi byt soucasti ceske abecedy. "
-                    f"V {locator} nesmi byt mezery. Zadejte prosim jmeno i prijmeni znovu")
+                    f"V {locator} nesmi byt mezery. Zadejte prosim krestni jmeno i prijmeni znovu")
+            
+                
 
     @property
     def age(self):
@@ -93,5 +87,5 @@ class Customer:
         self.__contact = t
 
     def __str__(self):
-        return self.name, self.contact, self.age
+        return self.name# self.contact, self.age
 

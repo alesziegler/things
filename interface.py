@@ -68,13 +68,13 @@ class Interface:
 
             try:
                 new_customer.name = full_name
+            
             except ValueError as error_message:
                 print(error_message)
             else:
                 name_invalid = False
-
-        # print(new_customer)
-
+        
+        
         contact = input("Zadejte telefon pojistence: ")
         Customer.contact = contact
         age = input("Zadejte vek pojistence: ")
