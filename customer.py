@@ -1,37 +1,22 @@
 class Customer:
-    """
-    Ok, there will be protected attributes, changed via setter.
-    In essence, it will be a dictionary.
-    There will be two possible ways
-
-    """
+    
     def __init__(self):
-        """
-        here we need to construct validation mechanism.
-        Maybe it should be via setter from the beginning? Yess
-        Maybe we should merge name and surname into one property
-        Also in add new customer in interface, we should call setter method,
-        not class as a whole?
-        """
+        
         self.__name = None
         self.__contact = None
         self.__age = None
         self.__identifiers = {
-            "name":self.__name,
-            "tel":self.__contact,
-            "age":self.__age
+            "name": self.__name,
+            "tel": self.__contact,
+            "age": self.__age
         }
-
-
-
 
     @property
     def name(self):
-        
         return self.__name
 
     @name.setter
-    def name(self,n):
+    def name(self, n):
         """
 
         :param n:
@@ -40,39 +25,43 @@ class Customer:
         if len(n) != 2:
             """
             Name has to be two objects in an iterable (given name and surname). 
-            This validation step is superflous in this app because of the way input is entered. 
-            But if Customer class would be repurposed for something else, it would be essential.
+            This validation step is superflous in this app because of the way input is entered, 
+            but if Customer class would be repurposed for something else, it would be essential.
             """
             raise ValueError("Je nutno zadat jmeno a prijmeni (dve slova)")
 
         given_name = n[0]
         surname = n[1]
-        
+
         try:
-            self.name_validation(given_name,"krestnim jmenu")
-            self.name_validation(surname,"prijmeni")
+            self.name_validation(given_name, "krestnim jmenu")
+            self.name_validation(surname, "prijmeni")
         except ValueError as error_message:
             raise ValueError(error_message)
         else:
             self.__name = given_name + " " + surname
 
-    def name_validation(self,name,locator):
-        
+    def name_validation(self, name, locator):
+
         czech_alphabet = "abcdefghijklmnopqrstuvwxyzáčďéěíňóřšťúůýž"
         for letter in name:
             if letter.lower() not in czech_alphabet:
                 raise ValueError(
                     f"Vsechny znaky v {locator} musi byt soucasti ceske abecedy. "
-                    f"V {locator} nesmi byt mezery. Zadejte prosim krestni jmeno i prijmeni znovu")
-            
-                
+                    f"V {locator} nesmi byt mezery. Zadejte prosim krestni jmeno i prijmeni znovu."
+                )
+
+        if not name[0].isupper():
+            raise ValueError(
+                f"Prvni pismeno v {locator} musi byt velke. Zadejte prosim krestni jmeno i prijmeni znovu."
+            )
 
     @property
     def age(self):
         return self.__age
 
     @age.setter
-    def age(self,a):
+    def age(self, a):
         #validation will here (possibly fancy datetime stuff, or just integer > 18, if I'll get lazy)
         self.__age = a
 
@@ -81,11 +70,10 @@ class Customer:
         return self.__contact
 
     @contact.setter
-    def contact(self,t):
+    def contact(self, t):
         #validation will be here.
         # contact should have length 6 and should be convertible to an integer.
         self.__contact = t
 
     def __str__(self):
-        return self.name# self.contact, self.age
-
+        return self.name  # self.contact, self.age
