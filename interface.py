@@ -81,8 +81,6 @@ class Interface:
             except ValueError as error_message:
                 # this is a custom message, defined in setter
                 print(error_message)
-                # for unclear reasons, withoud
-                #return
             else:
                 contact_invalid = False
 

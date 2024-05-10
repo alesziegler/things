@@ -91,6 +91,10 @@ class Customer:
         #validation will be here.
         # contact should have length 6 and should be convertible to an integer.
 
+    @property
+    def identifiers(self):
+        return self.__identifiers
+
 
     def __str__(self):
         return self.name  # self.contact, self.age
