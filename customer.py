@@ -7,7 +7,7 @@ class Customer:
         self.__age = None
         self.__identifiers = {
             "name": self.__name,
-            "tel": self.__contact,
+            "contact": self.__contact,
             "age": self.__age
         }
 
@@ -18,7 +18,6 @@ class Customer:
     @name.setter
     def name(self, n):
         """
-
         :param n:
         :return:
         """
@@ -36,10 +35,11 @@ class Customer:
         try:
             self.name_validation(given_name, "krestnim jmenu")
             self.name_validation(surname, "prijmeni")
-        except ValueError as error_message:
+        except ValueError as error_message:#this maybe could be shortened?
             raise ValueError(error_message)
         else:
             self.__name = given_name + " " + surname
+            self.__identifiers["name"] = self.__name
 
     def name_validation(self, name, locator):
 
@@ -72,8 +72,17 @@ class Customer:
 
     @age.setter
     def age(self, a):
-        #validation will here (possibly fancy datetime stuff, or just integer > 18, if I'll get lazy)
-        self.__age = a
+    # validation will here (possibly fancy datetime stuff, or not, if I'll get lazy)
+        try:
+            int(a)
+        except ValueError:
+            raise ValueError("Vek musi byt cislo (bez mezer mezi cislicemi)")
+        else:
+            if int(a) < 18:
+                raise ValueError("Vek musi byt vic jak 18")
+            else:
+                self.__age = a
+                self.__identifiers["age"] = self.__age
 
     @property
     def contact(self):
@@ -87,6 +96,7 @@ class Customer:
             raise ValueError("telefoni cislo musi obsahovat pouze cislice bez mezer")
         else:
             self.__contact = t
+            self.__identifiers["contact"] = self.__contact
 
         #validation will be here.
         # contact should have length 6 and should be convertible to an integer.
@@ -96,5 +106,7 @@ class Customer:
         return self.__identifiers
 
 
+
+
     def __str__(self):
-        return self.name  # self.contact, self.age
+        return f"{self.name}, {self.contact}, {self.age}"

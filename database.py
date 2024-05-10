@@ -17,6 +17,10 @@ class Database:
 
     def add_new_customer(self, new_customer):
         self.__core.append(new_customer)
+        print(new_customer.values())
+
+    def fetch_database(self):
+        return self.__core
 
     def find_customer(self, query):
         result = ""

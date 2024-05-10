@@ -84,10 +84,21 @@ class Interface:
             else:
                 contact_invalid = False
 
+        while age_invalid:
+            age = input("Zadejte vek pojistence: ")
+            try:
+                new_customer.age = age
+            except ValueError as error_message:
+                """
+                # this is a custom message, defined in setter
+                # surely there is a way to avoid so many repeats? new method!
+                params: new_customer, category, boolean
+                """
+                print(error_message)
+            else:
+                age_invalid = False
 
-
-        age = input("Zadejte vek pojistence: ")
-        Customer.age = age
+        print(new_customer)
         """
         Ok, probably just here we need to add Person to a database?
         Maybe using __str__method in Person?? Probably not, that
@@ -101,9 +112,11 @@ class Interface:
         Problem is, we need to connect database to interface
         Probably we should do that in interface constructor?
         """
+        print(new_customer.identifiers.values())
+        self.database.add_new_customer(new_customer.identifiers)
 
     def print_all_customers(self):
-        pass
+        print(self.database.fetch_database())
 
     def find_customer(self):
         pass
