@@ -69,8 +69,10 @@ def find_something(query,database,identifier):
     for customer in database:
         if str(customer[identifier].lower()) == query.lower():
             for identifier in customer:
-                print(f"{identifier}: {customer[identifier]},",end= " ")
+                print(f"{identifier}: {customer[identifier]},",end=" ")
+
             count += 1
+        print(end="\n")
     print(f"nalezeno {count} vysledku.")
 
 

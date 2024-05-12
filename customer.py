@@ -7,8 +7,8 @@ class Customer:
         self.__age = None
         self.__identifiers = {
             "name": self.__name,
+            "age": self.__age,
             "contact": self.__contact,
-            "age": self.__age
         }
 
     @property

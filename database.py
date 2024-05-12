@@ -19,30 +19,46 @@ class Database:
         for customer in self.__core_database:
             if customer == new_customer:
                 raise ValueError("Tento pojistenec uz je v evidenci.")
-            else:
-                self.__core_database.append(new_customer)
+
+
+        self.__core_database.append(new_customer)
+        #print("test append")
         #print(new_customer.values())
 
     def find_customer_by_category(self,category, query):
-        result = ""
+
+        count = 0
+
+        result = "Vysledky hledani: \n"
         for customer in self.__core_database:
-            if customer[category] == query:
-                result += str(customer)
+            if str(customer[category].lower()) == query.lower():
+                #result += "jmeno, vek, telefon\n"
+                #print(customer)
+                """
+                customer should be printed in the same format is in str method.
+                
+                """
+                result += f"jmeno: {customer['name']},vek: {customer['age']},telefon: {customer['contact']}\n"
+                count += 1
+        result += f"Nalezeno {count} vysledku."
+        #print(result)
         return result
 
     def __str__(self):
         """
         This is used for fetching the whole database
         """
-        printable_table = ""
-
+        printable_table = "jmeno,vek,telefon:\n"
+        count = 0
         for customer in self.__core_database:
             printable_customer = (
-                f"{customer['jmeno']},{customer['vek']},{customer['kontakt']}\n")
+                f"{customer['name']},{customer['age']},{customer['contact']}\n")
             printable_table += printable_customer
+            count += 1
             """
              so, we need to do what?
              ideally, a matrix, somehow.
              First line would be: jmeno, vek, telefon
              """
+        printable_table += f"Celkem {count} pojistencu."
         return printable_table

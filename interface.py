@@ -8,7 +8,8 @@ class Interface:
 
     def __init__(self):
         self.database = Database()
-        self.print_options()
+        self.choosing_from_main_menu()
+        """
         self.chosen_action = self.make_user_pick()
 
         while self.chosen_action != "4":
@@ -24,20 +25,57 @@ class Interface:
             self.print_options()
             self.chosen_action = self.make_user_pick()
         self.exit()
+        """
 
-    def print_options(self):
+    """
+    def print_main_menu(self):
 
-        print("""
+        print(
         Vase moznosti:\n
         1 - Pridat noveho pojisteneho\n
         2 - Vypsat vsechny pojistene\n
         3 - Vyhledat pojisteneho\n
         4 - Konec
-        """)
+        )
+    """
 
     def make_user_pick(self):
+        """
+        input prompt used for both main menu and search menu.
+        """
         chosen_action = input("Vyberte si akci ze seznamu vyse: ")
         return chosen_action
+
+    def choosing_from_main_menu(self):
+        print("""
+                Vase moznosti:\n
+                1 - Pridat noveho pojisteneho\n
+                2 - Vypsat vsechny pojistene\n
+                3 - Vyhledat pojisteneho\n
+                4 - Konec
+                """)
+
+        chosen_option = self.make_user_pick()
+        print("what about here")
+        print(chosen_option)
+
+        #while chosen_option != "4":
+        match chosen_option:
+                case "1":
+                    self.add_new_customer()
+                case "2":
+                    self.print_all_customers()
+                case "3":
+                    self.find_customer()
+                case "4":
+                    return
+                case _:
+                    print("Tohle neni spravna volba. Vyberte si prosim lepe.")
+        self.choosing_from_main_menu()
+        #self.choosing_from_main_menu()
+            #print("after repeated menu printing")
+
+
 
     def validate_input(self, boolean, property_of_object, prompt1, prompt2=None):
         """
@@ -91,7 +129,6 @@ class Interface:
             "Zadejte krestni jmeno pojistence (bez mezer): ",
             "Zadejte prijmeni pojistence (bez mezer): "
         )
-
         """
         while name_invalid:
             # this a stupidly repetitive way to do validation since clever method above doesn't work
@@ -128,12 +165,17 @@ class Interface:
                 print(error_message)
             else:
                 contact_invalid = False
-
-        self.database.add_new_customer(new_customer.identifiers)
+        try:
+            self.database.add_new_customer(new_customer.identifiers)
+            print("Novy pojistenec zadan do evidence.\n")
+        except ValueError as error_message:
+            print(error_message)
+        self.choosing_from_main_menu()
 
     def print_all_customers(self):
-        # this should be done via str of database
+        # this calls str method of database.
         print(self.database)
+        self.choosing_from_main_menu()
 
     def find_customer(self):
         print("""
@@ -148,28 +190,20 @@ class Interface:
         while query != "4":
             if query == "1":
                 name_query = input("Zadejte prosim hledane jmeno a prijmeni, oddelene mezerou: ")
-                self.database.find_customer_by_category("name",name_query)
+                print(self.database.find_customer_by_category("name",name_query))
             elif query == "2":
                 age_query = input("Zadejte prosim hledany vek: ")
-                self.database.find_customer_by_category("age",age_query)
+                print(self.database.find_customer_by_category("age",age_query))
             elif query == "3":
-                contact_query = input("Zadejte prosim hledane telefonni cislo (9 cislic bez mezer: ")
-                self.database.find_customer_by_category("contact",contact_query)
+                contact_query = input("Zadejte prosim hledane telefonni cislo (9 cislic bez mezer): ")
+                print(self.database.find_customer_by_category("contact",contact_query))
             else:
-                self.handling_invalid_input()
-                self.find_customer()
+                print("Tohle je spatna volba. Vyberte si prosim lepe.")
+                #self.handling_invalid_input()
+            self.find_customer()
         print("Ok. Vitejte zpatky v hlavnim menu.")
-        self.exit()
-
-
-
-    def exit(self):
-        """
-    Right now, this method is superfluous, but what if
-    I decide to add some other functionality
-    (e.g. sending some data somewhere before app closes)
-    """
-        return
+        #self.choosing_from_main_menu()
 
     def handling_invalid_input(self):
         print("Tohle neni spravna volba. Vyberte si prosim lepe.")
+
