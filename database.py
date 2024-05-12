@@ -13,25 +13,36 @@ class Database:
     """
 
     def __init__(self):
-        self.__core = []
+        self.__core_database = []
 
     def add_new_customer(self, new_customer):
-        self.__core.append(new_customer)
-        print(new_customer.values())
+        for customer in self.__core_database:
+            if customer == new_customer:
+                raise ValueError("Tento pojistenec uz je v evidenci.")
+            else:
+                self.__core_database.append(new_customer)
+        #print(new_customer.values())
 
-    def fetch_database(self):
-        return self.__core
-
-    def find_customer(self, query):
+    def find_customer_by_category(self,category, query):
         result = ""
-        for customer in self.__core:
-            if customer == query:
+        for customer in self.__core_database:
+            if customer[category] == query:
                 result += str(customer)
         return result
 
     def __str__(self):
         """
-        This will be used for fetching the whole database
-        :return:
+        This is used for fetching the whole database
         """
-        pass
+        printable_table = ""
+
+        for customer in self.__core_database:
+            printable_customer = (
+                f"{customer['jmeno']},{customer['vek']},{customer['kontakt']}\n")
+            printable_table += printable_customer
+            """
+             so, we need to do what?
+             ideally, a matrix, somehow.
+             First line would be: jmeno, vek, telefon
+             """
+        return printable_table

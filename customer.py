@@ -43,6 +43,9 @@ class Customer:
 
     def name_validation(self, name, locator):
 
+        if not name:
+            raise ValueError("Je nutno zadat jmeno i prijmeni")
+
         czech_alphabet = "abcdefghijklmnopqrstuvwxyzáčďéěíňóřšťúůýž"
         for letter in name:
             if letter.lower() not in czech_alphabet:
@@ -57,12 +60,9 @@ class Customer:
                 f"Zadejte prosim krestni jmeno i prijmeni znovu."
             )
         if not name[1::].islower():
-            """
-            this is unfortunately triggered even when name has just one capital letter.
-            I'll try to fix that.
-            """
             raise ValueError(
                 f"Velke pismeno muze byt v {locator} jen na zacatku. "
+                f"Zaroven krestni jmeno i prijmeni nesmi byt jen jedno pismeno."
                 f"Zadejte prosim krestni jmeno i prijmeni znovu."
             )
 
@@ -79,7 +79,7 @@ class Customer:
             raise ValueError("Vek musi byt cislo (bez mezer mezi cislicemi)")
         else:
             if int(a) < 18:
-                raise ValueError("Vek musi byt vic jak 18")
+                raise ValueError("Vek musi byt nejmene 18")
             else:
                 self.__age = a
                 self.__identifiers["age"] = self.__age
@@ -95,18 +95,21 @@ class Customer:
         except ValueError:
             raise ValueError("telefoni cislo musi obsahovat pouze cislice bez mezer")
         else:
-            self.__contact = t
-            self.__identifiers["contact"] = self.__contact
-
-        #validation will be here.
-        # contact should have length 6 and should be convertible to an integer.
+            if len(t) != 9:
+                raise ValueError("telefonni cislo musi obsahovat presne 9 cislic bez mezer")
+            else:
+                self.__contact = t
+                self.__identifiers["contact"] = self.__contact
 
     @property
     def identifiers(self):
         return self.__identifiers
 
-
-
-
     def __str__(self):
+        """
+        this method is actually superfluous in this app, since
+        customers are delivered to the database in a form of dictionaries, not strings.
+        It would of course be possible to make them into strings and then split them and
+        create a dictionary in Database class, but that would be more complicated and I am not aware of any advantages.
+        """
         return f"{self.name}, {self.contact}, {self.age}"

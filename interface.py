@@ -4,11 +4,6 @@ from database import Database
 
 class Interface:
     """
-    Instance  of this class
-    1) takes user input from Menu,
-    2) decides what to do based on it,
-    3) handles all communication with users after they pick an option in Menu
-    4) adds created customers to database?
     """
 
     def __init__(self):
@@ -30,7 +25,6 @@ class Interface:
             self.chosen_action = self.make_user_pick()
         self.exit()
 
-
     def print_options(self):
 
         print("""
@@ -45,23 +39,62 @@ class Interface:
         chosen_action = input("Vyberte si akci ze seznamu vyse: ")
         return chosen_action
 
+    def validate_input(self, boolean, property_of_object, prompt1, prompt2=None):
+        """
+         (Unfortunately this doesn't work;
+         I am leaving it here in the hope that I'll be able to fix that later)
+        """
+        pass
+        """
+        This static method abstracts validation of user input, to avoid repeating code:
+        :param boolean:
+            while True, user is repeatedly asked for input.
+            It becomes False when correct input is received from user.
+        :param property_of_object:
+        this is the property where we put validated input.
+        :param prompt1:
+        Variable input prompt.
+        :param prompt2:
+        optional second input prompt (here used for validating name(given_name,surname))
+        """
+        """
+        while boolean:
+            data_added_to_object = input(prompt1)
+            if prompt2 is not None:
+                additional_data = input(prompt2)
+                data_added_to_object = (data_added_to_object, additional_data)
+            try:
+                property_of_object = data_added_to_object
+            except ValueError as error_message:
+                # this is a custom message, defined in property setter
+                print(error_message)
+            else:
+                # when validation successful, boolean switches and process moves on:
+                boolean = False
+        """
 
     def add_new_customer(self):
-        """
-        There are several pieces that need to be put together.
-        Validation should be done through while loop(s) connected
-        ...
 
-        :return:
-        """
         name_invalid = True
         contact_invalid = True
         age_invalid = True
 
         new_customer = Customer()
 
-        while name_invalid:
+        """
+        unfortunately this doesn't work
+        (it asks for inputs,but it fails to pass input into setter,
+        and continues with the next step):
+        self.validate_input(
+            name_invalid,
+            new_customer.name,
+            "Zadejte krestni jmeno pojistence (bez mezer): ",
+            "Zadejte prijmeni pojistence (bez mezer): "
+        )
 
+        """
+        while name_invalid:
+            # this a stupidly repetitive way to do validation since clever method above doesn't work
             given_name = input("Zadejte krestni jmeno pojistence (bez mezer): ")
             surname = input("Zadejte prijmeni pojistence (bez mezer): ")
             full_name = (given_name, surname)
@@ -69,57 +102,66 @@ class Interface:
             try:
                 new_customer.name = full_name
             except ValueError as error_message:
-                #this is a custom message, defined in setter
+                # this is a custom message, defined in setter:
                 print(error_message)
             else:
                 name_invalid = False
 
-        while contact_invalid:
-            contact = input("Zadejte telefon pojistence: ")
-            try:
-                new_customer.contact = contact
-            except ValueError as error_message:
-                # this is a custom message, defined in setter
-                print(error_message)
-            else:
-                contact_invalid = False
-
         while age_invalid:
+            # this a stupidly repetitive way to do validation since clever method above doesn't work
             age = input("Zadejte vek pojistence: ")
             try:
                 new_customer.age = age
             except ValueError as error_message:
-                """
-                # this is a custom message, defined in setter
-                # surely there is a way to avoid so many repeats? new method!
-                params: new_customer, category, boolean
-                """
-                print(error_message)
+               # this is a custom message, defined in setter:
+               print(error_message)
             else:
                 age_invalid = False
 
-        print(new_customer)
-        """
-        Ok, probably just here we need to add Person to a database?
-        Maybe using __str__method in Person?? Probably not, that
-        will be for printing and searching of a database??
-        Or maybe we should add it in constructor of Person??
-        OR, what about like this:
-        new_costumer = Person()
-        new_customer.name = n
-        and so on. Then:
-        Database.add(new_customer)
-        Problem is, we need to connect database to interface
-        Probably we should do that in interface constructor?
-        """
-        print(new_customer.identifiers.values())
+        while contact_invalid:
+            # this a stupidly repetitive way to do validation since clever method above doesn't work
+            contact = input("Zadejte telefon pojistence: ")
+            try:
+                new_customer.contact = contact
+            except ValueError as error_message:
+                # this is a custom message, defined in setter:
+                print(error_message)
+            else:
+                contact_invalid = False
+
         self.database.add_new_customer(new_customer.identifiers)
 
     def print_all_customers(self):
-        print(self.database.fetch_database())
+        # this should be done via str of database
+        print(self.database)
 
     def find_customer(self):
-        pass
+        print("""
+        Chcete vyhledat pojisteneho:\n
+        1) podle jmena a prijmeni?\n
+        2) podle veku?\n
+        3) podle telefoniho cisla?\n
+        4) rozmyslel jsem si to. Nic hledat nechci.
+        """)
+        query = self.make_user_pick()
+
+        while query != "4":
+            if query == "1":
+                name_query = input("Zadejte prosim hledane jmeno a prijmeni, oddelene mezerou: ")
+                self.database.find_customer_by_category("name",name_query)
+            elif query == "2":
+                age_query = input("Zadejte prosim hledany vek: ")
+                self.database.find_customer_by_category("age",age_query)
+            elif query == "3":
+                contact_query = input("Zadejte prosim hledane telefonni cislo (9 cislic bez mezer: ")
+                self.database.find_customer_by_category("contact",contact_query)
+            else:
+                self.handling_invalid_input()
+                self.find_customer()
+        print("Ok. Vitejte zpatky v hlavnim menu.")
+        self.exit()
+
+
 
     def exit(self):
         """
