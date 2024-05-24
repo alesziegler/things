@@ -17,6 +17,8 @@ class Database:
 
     def add_new_customer(self, new_customer):
         for customer in self.__core_database:
+            if type(customer) is not dict:
+                raise ValueError()
             if customer == new_customer:
                 raise ValueError("Tento pojistenec uz je v evidenci.")
 
