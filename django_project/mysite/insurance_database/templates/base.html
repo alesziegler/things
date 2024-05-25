@@ -3,22 +3,25 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Můj web s filmy</title>
+    <title>ITN projekt</title>
 </head>
 <body>
     <header>
-        Something
-        </header>
-    <nav>
-        <div class="flex_box">
-             <div class="nav_item"><a href="{% url 'main_table' %}">Index</a></div>
-            <div class="nav_item"><a href="{% url 'add_customer' %}">Nový Pojistenec</a></div>
-        </div>
-    </nav>
+        <nav class="upper_nav">
+            <div class="flex_box">
+                <span class="nav_item"><a href="{% url 'main_table' %}">Indexxssxsx</a></span>
+                <span class="nav_item"><a href="{% url 'add_customer' %}">Nový Pojistenec</a></span>
+            </div>
+        </nav>
+    </header>
+    <div id="control-gap1">
+        <br>
+        <br>
+    </div>
     <div class="content">
     {% block content %}
 

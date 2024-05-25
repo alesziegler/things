@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
+
+
 <table>
     {% for customer in customers %}
     <tr>
-        <td>
+        <td class="cell">
         Jmeno: {{ customer.name }}
             </td>
-        <td>
+        <td class="cell">
         Vek: {{ customer.age }} </td>
-        <td>
+        <td class="cell">
         Telefon: {{ customer.contact }} <td>
     </tr>
     {% endfor %}
     </table>
+
 {% endblock %}
