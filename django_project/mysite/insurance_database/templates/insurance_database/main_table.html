@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
+<table>
     {% for customer in customers %}
-        Jmeno: {{ customer.name }} <br>
-        Vek: {{ customer.age }} <br>
-        Telefon: {{ customer.contact }} <p>
+    <tr>
+        <td>
+        Jmeno: {{ customer.name }}
+            </td>
+        <td>
+        Vek: {{ customer.age }} </td>
+        <td>
+        Telefon: {{ customer.contact }} <td>
+    </tr>
     {% endfor %}
-</body>
-</html>
+    </table>
+{% endblock %}
