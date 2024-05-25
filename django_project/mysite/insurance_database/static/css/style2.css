@@ -1,35 +1,35 @@
 
 .upper_nav{
  font:black;
- background:rgb(206, 28, 137);
+
  font-weight:bold;
 }
 
 
 table{
-    display: flex;
-    vertical-align: justify;
     
     justify-content: center;
     
 }
 
 .content{
-    background-color: rgba(17, 14, 165, 0.562);
+    
     width: 80%;
     margin: auto;
     margin-top: 80px;
     margin-bottom: 80px;
+    
+    
     }
 
 
-footer{
-    background-color:rgba(218, 10, 10, 0.644);
-    vertical-align: bottom;
-}
-
 .cell{
-border: 1px solid red;
+border: 2px solid ;
+
+    width: 33%;
+    padding: 10px;
+    vertical-align: top;
+
 
 }
 

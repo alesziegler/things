@@ -10,25 +10,13 @@
     <title>ITN projekt</title>
 </head>
 <body>
-    <header>
-        <nav class="upper_nav">
-            <div class="flex_box">
-                <span class="nav_item"><a href="{% url 'main_table' %}">Indexxssxsx</a></span>
-                <span class="nav_item"><a href="{% url 'add_customer' %}">Nový Pojistenec</a></span>
-            </div>
-        </nav>
-    </header>
-    <div id="control-gap1">
-        <br>
-        <br>
-    </div>
+    {% block header %}
+    {% endblock %}
+   
     <div class="content">
     {% block content %}
 
     {% endblock %}
-    </div>
-    <footer>
-        Footer
-    </footer>
+    
 </body>
 </html>
