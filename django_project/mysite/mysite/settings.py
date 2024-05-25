@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'insurance_database'
+    'insurance_database',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

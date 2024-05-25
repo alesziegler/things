@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% for customer in customers %}
+        Jmeno: {{ customer.name }} <br>
+        Vek: {{ customer.age }} <br>
+        Telefon: {{ customer.contact }} <p>
+    {% endfor %}
+</body>
+</html>
