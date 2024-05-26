@@ -6,5 +6,8 @@ class Customer(models.Model):
   age = models.IntegerField()
   contact = models.CharField(max_length=20)
 
+  
+    
+
   def __str__(self):
     return f"{self.name}, {self.age}, {self.contact}"

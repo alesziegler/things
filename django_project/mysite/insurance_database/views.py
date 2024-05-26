@@ -24,5 +24,7 @@ class AddCustomer(generic.edit.CreateView):
 
   def get(self, request):
     #this is probably an equivalent of the part of an interface interacting with validation?
-    form = self.form_class(None)
+    form = self.form_class(request.POST)
+    if form.is_valid():
+            form.save(commit=True)
     return render(request, self.template_name, {"form": form})
