@@ -6,12 +6,19 @@
         <div class="flex_box">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container">
-                    <a class="navbar-brand" href="#">Databaze pojistencu test</a>
+                    <!-- This below is an anchor just because I like this bootstrap styling and don't want to mess it up/spent time recreating it -->
+                    <a class="navbar-brand">Databaze pojistencu - hlavni tabulka</a> 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            {% if not user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Prihlasit</a></li>
+                            {% endif %}
+                            {% if user.is_admin %}
                             <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'add_customer' %}">Pridat pojistence</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Prihlasit</a></li>
+                            <div class="nav_item"><a href="{% url 'logout' %}">Odhlasit</a></div>
+                            {% endif %}
+                            
                             
                                 </ul>
                             </li>
@@ -49,7 +56,7 @@
         {% for customer in customers %}
         <tr>
             <td class="cell">
-            {{ customer.name }} a {{ customer.contact }}
+            {{ customer.surname }}, {{ customer.given_name }}
                 </td>
             <td class="cell">
             {{ customer.age }} </td>

@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Customer
-from .forms import CustomerForm
+from .forms import CustomerForm, LoginForm
 
 # Create your views here.
 class MainTable(generic.ListView):
@@ -14,7 +14,7 @@ class MainTable(generic.ListView):
   context_object_name = "customers"
 
   def get_queryset(self):
-    return Customer.objects.all().order_by("name")
+    return Customer.objects.all().order_by("surname")
   
 
 class AddCustomer(generic.edit.CreateView):
@@ -42,6 +42,26 @@ class AddCustomer(generic.edit.CreateView):
             form.save(commit=True)
             return redirect("main_table")
     return render(request, self.template_name, {"form": form})
+  
+
+class UserViewLogin(generic.edit.CreateView):
+    form_class = LoginForm
+    template_name = "insurance_database/user_form.html"
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            user = authenticate(email=email, password=password)
+            if user:
+                login(request, user)
+                return redirect("main_table")
+        return render(request, self.template_name, {"form": form})
   
 
 def logout_user(request):

@@ -3,12 +3,13 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
 class Customer(models.Model):
-  name = models.CharField(max_length=200)
+  given_name = models.CharField(max_length=200)
+  surname = models.CharField(max_length=200)
   age = models.IntegerField()
   contact = models.CharField(max_length=20)
     
   def __str__(self):
-    return f"{self.name}, {self.age}, {self.contact}"
+    return f"{self.given_name}, {self.surname}, {self.age}, {self.contact}"
   
 
 class UserManager(BaseUserManager):
