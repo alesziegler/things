@@ -70,3 +70,9 @@ def logout_user(request):
     else:
         messages.info(request, "Nemůžeš se odhlásit, pokud nejsi přihlášený.")
     return redirect("login")
+
+class CustomerDetail(generic.DetailView):
+    
+    model = Customer
+    template_name = "insurance_database/customer_detail.html"
+    

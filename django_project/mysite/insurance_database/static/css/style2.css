@@ -9,7 +9,6 @@
 table{
     
     justify-content: center;
-    
 }
 
 .content{
@@ -18,21 +17,24 @@ table{
     margin: auto;
     margin-top: 80px;
     margin-bottom: 80px;
-    
-    
+        
     }
 
-
 .cell{
-border: 2px solid ;
-
+    border: 2px solid ;
     width: 33%;
     padding: 10px;
-    vertical-align: top;
+    vertical-align: top; 
+    
+}
 
-
+.desperate_span{
+    
+    font-style:italic;
 }
 
 #control-gap1{
     background-color: green;
+    width: 200%;
 }
+

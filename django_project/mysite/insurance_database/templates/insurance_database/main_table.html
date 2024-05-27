@@ -56,7 +56,7 @@
         {% for customer in customers %}
         <tr>
             <td class="cell">
-            {{ customer.surname }}, {{ customer.given_name }}
+           <a href="{% url 'customer_detail' customer.id %}"> {{ customer.surname }}, {{ customer.given_name }} </a>
                 </td>
             <td class="cell">
             {{ customer.age }} </td>
