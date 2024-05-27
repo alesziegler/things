@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block header %}
@@ -5,8 +6,6 @@
 {% endblock %}
 
 {% block content %}
-
-
 
 <table>
   <thead>
@@ -16,29 +15,65 @@
     
   </thead>
   <tbody>
-  <tr>
-    <td class="cell">
-      test1
-    </td>
-    <td class="cell" text="data">
-      <span class="desperate_span" >
-        
-      test2
-    </span>
-    </td>
     <tr>
       <td class="cell">
-        test3
+        <span class="desperate_span" >
+          Krestni jmeno:
+        </span>   
+      </td>
+      <td class="cell">
+        {{ customer.given_name }}
       </td>
     </tr>
+    <tr>
+      <td class="cell">
+        <span class="desperate_span">
+          Prijmeni:
+        </span>
+      </td>
+        <td class="cell">
+          {{ customer.surname }}
+      </td>
+    </tr>
+    <tr>
+      <td class="cell">
+        <span class="desperate_span">
+          Vek:
+        </span>
+      </td>
+      <td class="cell">
+        {{ customer.age }}
+      </td>
+    <tr>
+      <td class="cell">
+        <span class="desperate_span">
+          Telefon:
+        </span>
+      </td>
+      <td class="cell">
+        {{ customer.contact }}
+      </td>
+    </tr>
+      <td class="cell">
+        <span class="desperate_span">
+          Druh pojisteni:
+        </span>
+      </td>
+      <td class="cell">
 
-</tbody>
+      </td>
+    </tr>
+    <tr>
+      <td class="cell">
+        <span class="desperate_span">
+          Pojistna castka:
+        </span>
+      </td>
+      <td class="cell">
+
+      </td>
+    </tr>
+  </tbody>
 </table>
-
-<span class="test-span">
-  This is a test span test
-</span>
-
-<div id="control-gap1"><br></div>
 
 {% endblock %}
