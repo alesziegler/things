@@ -10,13 +10,16 @@ class CustomerForm(forms.ModelForm):
         fields = ["given_name","surname","age","contact"]
 
     def __init__(self, *args, **kwargs):
-        #this is totally cribed from StackOverflow :-)
+        
         super(CustomerForm, self).__init__(*args, **kwargs)
         self.fields["given_name"].label = "Krestni jmeno"
         self.fields["surname"].label = "Prijmeni"
         self.fields["age"].label = "Vek"
         self.fields["contact"].label = "Telefon"
+        #self.fields["insurance_type"].label = "Pojistna udalost"
     
+    def clean_insurance_type(self):
+        data = self.cleaned_data.get("insurance_type")
     
     def clean_given_name(self):
         """

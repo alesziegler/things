@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 # Register your models here.
-from .models import Customer, UserManager, User
+from .models import Customer, UserManager, User, Insurance
 
 class UserCreationForm(forms.ModelForm):
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
@@ -58,5 +58,6 @@ class SupremeAdmin(UserAdmin):
     filter_horizontal = []
 
 
+admin.site.register(Insurance)
 admin.site.register(Customer)
 admin.site.register(User,SupremeAdmin)

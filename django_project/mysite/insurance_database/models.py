@@ -2,11 +2,26 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
+
+class Insurance(models.Model):
+    insurance_type = models.CharField(max_length=80, verbose_name="Druh pojisteni")
+    #insurance_amount = models.IntegerField(verbose_name="Pojistna castka")
+
+    def __str__(self):
+        return f"druh pojisteni: {self.insurance_type}"
+
+
 class Customer(models.Model):
+  """
+  TYPES = ((1,'Jaderny vybuch'),(2,'Zombie apokalypsa'),
+               (3,'Vzpoura robotu'),(4,'Sovetsky svaz'))
+    """
   given_name = models.CharField(max_length=200)
   surname = models.CharField(max_length=200)
   age = models.IntegerField()
   contact = models.CharField(max_length=20)
+  #insurance_type = models.ForeignKey(Insurance,on_delete=models.SET_NULL, null=True)
+  
     
   def __str__(self):
     return f"{self.given_name}, {self.surname}, {self.age}, {self.contact}"
@@ -21,6 +36,12 @@ class UserManager(BaseUserManager):
             user.set_password(password)
             user.save()
             return user
+        
+    def create_superuser(self, email, password):
+        user = self.create_user(email, password)
+        user.is_admin = True
+        user.save()
+        return user
         
         
 class User(AbstractBaseUser):
@@ -53,3 +74,7 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+    
+
+
+    
